@@ -22,6 +22,7 @@ repos:
         types: [file]
         additional_dependencies:
           - 'eslint'
+          - 'svelte'
           - '@typescript-eslint/eslint-plugin'
           - 'eslint-plugin-svelte'
           - 'prettier-plugin-svelte'
