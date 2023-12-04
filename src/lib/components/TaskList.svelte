@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { taskNames, type TaskName } from '$lib/utils';
+	import { taskNames, type TaskName } from '$lib/api';
 	import { Checkbox } from 'flowbite-svelte';
 
 	export let tasks: [...TaskName[]];

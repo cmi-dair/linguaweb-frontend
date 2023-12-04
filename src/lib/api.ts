@@ -1,56 +1,50 @@
 const API_ROUTE = import.meta.env.VITE_API_URL || 'http://localhost:8000/api/v1';
 
-export interface WordDescription {
+export type TaskName = 'synonyms' | 'antonyms' | 'description' | 'jeopardy' | 'listening';
+export type WritingTaskName = 'synonyms' | 'antonyms' | 'description' | 'jeopardy';
+export const taskNames: TaskName[] = [
+	'synonyms',
+	'antonyms',
+	'description',
+	'jeopardy',
+	'listening'
+];
+
+export interface Word {
 	id: number;
 	description: string;
-}
-
-export interface WordSynonyms {
-	id: number;
 	synonyms: string[];
-}
-
-export interface WordAntonyms {
-	id: number;
 	antonyms: string[];
-}
-
-export interface WordJeopardy {
-	id: number;
 	jeopardy: string;
+	s3_key: string;
 }
 
 export interface WordCheckRequest {
 	word: string;
 }
 
-export const getWordDescription = async (): Promise<WordDescription> => {
-	const response = await fetch(`${API_ROUTE}/text/description`);
+export const getWordIds = async (): Promise<number[]> => {
+	const response = await fetch(`${API_ROUTE}/words`);
 	return response.json();
 };
 
-export const getWordSynonyms = async (): Promise<WordSynonyms> => {
-	const response = await fetch(`${API_ROUTE}/text/synonyms`);
+export const getWord = async (id: number): Promise<Word> => {
+	const response = await fetch(`${API_ROUTE}/words/${id}`);
 	return response.json();
 };
 
-export const getWordAntonyms = async (): Promise<WordAntonyms> => {
-	const response = await fetch(`${API_ROUTE}/text/antonyms`);
-	return response.json();
-};
-
-export const getWordJeopardy = async (): Promise<WordJeopardy> => {
-	const response = await fetch(`${API_ROUTE}/text/jeopardy`);
-	return response.json();
+export const getWordAudio = async (id: number): Promise<Blob> => {
+	const response = await fetch(`${API_ROUTE}/words/download/${id}`);
+	return response.blob();
 };
 
 export const postCheckWord = async (wordId: number, word: string): Promise<boolean> => {
-	const response = await fetch(`${API_ROUTE}/text/check/${wordId}`, {
+	const formData = new FormData();
+	formData.append('word', word);
+
+	const response = await fetch(`${API_ROUTE}/words/check/${wordId}`, {
 		method: 'POST',
-		headers: {
-			'Content-Type': 'application/json'
-		},
-		body: JSON.stringify({ word })
+		body: formData
 	});
 	return response.json();
 };
