@@ -1,11 +1,11 @@
 <script lang="ts">
-	import { taskNames, type TaskName } from '$lib/utils';
+	import { taskNames, type TaskName } from '$lib/api';
 	import { Checkbox } from 'flowbite-svelte';
 
 	export let tasks: [...TaskName[]];
 
 	function capitalizeFirstLetter(str: string): string {
-		if (str.length === 0) return str; // Return the original string if it's empty
+		if (str.length === 0) return str;
 
 		return str.charAt(0).toUpperCase() + str.slice(1);
 	}
