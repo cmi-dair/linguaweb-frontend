@@ -1,17 +1,25 @@
 const API_ROUTE = import.meta.env.VITE_API_URL || 'http://localhost:8000/api/v1';
 
-export type TaskName = 'synonyms' | 'antonyms' | 'description' | 'jeopardy' | 'listening';
+export type TaskName =
+	| 'synonyms'
+	| 'antonyms'
+	| 'description'
+	| 'jeopardy'
+	| 'listening'
+	| 'speech';
 export type WritingTaskName = 'synonyms' | 'antonyms' | 'description' | 'jeopardy';
 export const taskNames: TaskName[] = [
 	'synonyms',
 	'antonyms',
 	'description',
 	'jeopardy',
-	'listening'
+	'listening',
+	'speech'
 ];
 
 export interface Word {
 	id: number;
+	word: string;
 	description: string;
 	synonyms: string[];
 	antonyms: string[];
@@ -36,6 +44,17 @@ export const getWord = async (id: number): Promise<Word> => {
 export const getWordAudio = async (id: number): Promise<Blob> => {
 	const response = await fetch(`${API_ROUTE}/words/download/${id}`);
 	return response.blob();
+};
+
+export const getSpeechTranscript = async (audio: Blob): Promise<string> => {
+	const formData = new FormData();
+	formData.append('audio', audio);
+
+	const response = await fetch(`${API_ROUTE}/speech/transcribe`, {
+		method: 'POST',
+		body: formData
+	});
+	return response.json();
 };
 
 export const postCheckWord = async (wordId: number, word: string): Promise<boolean> => {

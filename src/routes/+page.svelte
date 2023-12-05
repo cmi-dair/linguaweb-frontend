@@ -5,6 +5,7 @@
 	import { getWordIds, type TaskName } from '$lib/api';
 	import { onMount } from 'svelte';
 	import ListeningTask from '$lib/components/ListeningTask.svelte';
+	import SpeechTask from '$lib/components/SpeechTask.svelte';
 
 	let score = 0;
 	let maxScore = 0;
@@ -36,17 +37,19 @@
 		setNextTask();
 	});
 
-	$: tasks, setNextTask();
+	$: if (!tasks.includes(currentTask)) setNextTask();
 </script>
 
-<!--It ain't pretty, could probaby be refactored.-->
 <TaskList bind:tasks />
 
-{#if (tasks.length > 0, currentWordId)}
+<!--It ain't pretty, could probaby be refactored.-->
+{#if tasks.length > 0 && currentWordId}
 	{#key currentTask}
 		{#key currentWordId}
 			{#if currentTask === 'listening'}
 				<ListeningTask on:check={onCheck} wordId={currentWordId} />
+			{:else if currentTask === 'speech'}
+				<SpeechTask on:check={onCheck} wordId={currentWordId} />
 			{:else}
 				<WritingTask on:check={onCheck} task={currentTask} wordId={currentWordId} />
 			{/if}

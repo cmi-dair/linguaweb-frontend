@@ -5,7 +5,7 @@
 	export let tasks: [...TaskName[]];
 
 	function capitalizeFirstLetter(str: string): string {
-		if (str.length === 0) return str; // Return the original string if it's empty
+		if (str.length === 0) return str;
 
 		return str.charAt(0).toUpperCase() + str.slice(1);
 	}
