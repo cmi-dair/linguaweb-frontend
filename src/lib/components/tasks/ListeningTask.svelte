@@ -1,15 +1,14 @@
 <script lang="ts">
 	import { type Word, getWord, getWordAudio } from '$lib/api';
 	import { P, Spinner } from 'flowbite-svelte';
-	import TaskBase from '$lib/components/TaskBase.svelte';
+	import TaskBase from '$lib/components/tasks/TaskBase.svelte';
 	import { createEventDispatcher } from 'svelte';
-	import AudioPlayer from './AudioPlayer.svelte';
+	import AudioPlayer from '../AudioPlayer.svelte';
 
 	export let wordId: number;
 
 	const taskDescription = 'What word do you hear?';
 
-	let targetWord: Promise<Word> = getWord(wordId);
 	let wordAudio = getWordAudio(wordId);
 
 	let dispatch = createEventDispatcher();

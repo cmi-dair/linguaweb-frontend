@@ -20,7 +20,7 @@
 		const isCorrect = await postCheckWord(wordId, inputElement.value);
 		dispatch('check', isCorrect);
 		if (!isCorrect) {
-			lastGuess = inputElement.value;
+			lastGuess = inputElement.value.toLowerCase();
 		}
 	}
 

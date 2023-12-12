@@ -2,7 +2,7 @@
 	import { type Word, getWord, getSpeechTranscript, postCheckWord } from '$lib/api';
 	import { P, Spinner } from 'flowbite-svelte';
 	import { createEventDispatcher } from 'svelte';
-	import SpeechRecorder from './SpeechRecorder.svelte';
+	import SpeechRecorder from '$lib/components/SpeechRecorder.svelte';
 
 	export let wordId: number;
 

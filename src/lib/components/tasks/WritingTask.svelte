@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { type Word, getWord, type WritingTaskName } from '$lib/api';
 	import { P, Spinner } from 'flowbite-svelte';
-	import TaskBase from '$lib/components/TaskBase.svelte';
+	import TaskBase from '$lib/components/tasks/TaskBase.svelte';
 	import { createEventDispatcher } from 'svelte';
 
 	export let task: WritingTaskName;
