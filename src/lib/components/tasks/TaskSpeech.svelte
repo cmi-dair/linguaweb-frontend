@@ -1,8 +1,8 @@
 <script lang="ts">
-	import { type Word, getWord, getSpeechTranscript, postCheckWord } from '$lib/api';
+	import { type Word, getWord, getSpeechTranscript } from '$lib/api';
 	import { P, Spinner } from 'flowbite-svelte';
 	import { createEventDispatcher } from 'svelte';
-	import SpeechRecorder from './SpeechRecorder.svelte';
+	import SpeechRecorder from '$lib/components/SpeechRecorder.svelte';
 
 	export let wordId: number;
 
@@ -15,8 +15,7 @@
 		const blob = event.detail;
 
 		lastWord = await getSpeechTranscript(blob);
-		const isCorrect = await postCheckWord(wordId, lastWord);
-		dispatch('check', isCorrect);
+		dispatch('check', lastWord);
 	}
 </script>
 
