@@ -1,12 +1,13 @@
 <script lang="ts">
 	import type { TaskName } from '$lib/api';
-	import ListeningTask from '$lib/components/tasks/ListeningTask.svelte';
-	import SpeechTask from '$lib/components/tasks/SpeechTask.svelte';
-	import WritingTask from '$lib/components/tasks/WritingTask.svelte';
+	import TaskListening from '$lib/components/tasks/TaskListening.svelte';
+	import TaskSpeech from '$lib/components/tasks/TaskSpeech.svelte';
+	import TaskWriting from '$lib/components/tasks/TaskWriting.svelte';
 	import { createEventDispatcher } from 'svelte';
 
 	export let wordId: number;
 	export let task: TaskName;
+	export let distractorIds: number[];
 
 	const dispatch = createEventDispatcher();
 
@@ -16,9 +17,9 @@
 </script>
 
 {#if task === 'listening'}
-	<ListeningTask on:check={onCheck} {wordId} />
+	<TaskListening on:check={onCheck} {wordId} />
 {:else if task === 'speech'}
-	<SpeechTask on:check={onCheck} {wordId} />
+	<TaskSpeech on:check={onCheck} {wordId} />
 {:else}
-	<WritingTask on:check={onCheck} {task} {wordId} />
+	<TaskWriting on:check={onCheck} {task} {wordId} {distractorIds} />
 {/if}
