@@ -1,13 +1,11 @@
 <script lang="ts">
-	import { type Word, getWord, getWordAudio } from '$lib/api';
+	import { getWordAudio } from '$lib/api';
 	import { P, Spinner } from 'flowbite-svelte';
-	import TaskBase from '$lib/components/tasks/TaskBase.svelte';
 	import { createEventDispatcher } from 'svelte';
 	import AudioPlayer from '../AudioPlayer.svelte';
+	import ResponseInput from './ResponseInput.svelte';
 
 	export let wordId: number;
-
-	const taskDescription = 'What word do you hear?';
 
 	let wordAudio = getWordAudio(wordId);
 
@@ -20,9 +18,9 @@
 {#await wordAudio}
 	<Spinner />
 {:then audioBlob}
-	<TaskBase description={taskDescription} {wordId} on:check={onCheck}>
-		<AudioPlayer slot="task" {audioBlob} />
-	</TaskBase>
+	<P><b>'What word do you hear?'</b></P>
+	<AudioPlayer {audioBlob} />
+	<ResponseInput on:keyup={onCheck} />
 {:catch error}
 	<P>{error.message}</P>
 {/await}

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { taskNames, type TaskName } from '$lib/api';
-	import { Checkbox } from 'flowbite-svelte';
+	import { Checkbox, P } from 'flowbite-svelte';
 
 	export let tasks: [...TaskName[]];
 
@@ -11,7 +11,7 @@
 	}
 </script>
 
-<p class="mb-4 font-semibold text-gray-900 dark:text-white">Tasks</p>
+<P>Tasks</P>
 <ul
 	class="w-48 bg-white rounded-lg border border-gray-200 dark:bg-gray-800 dark:border-gray-600 divide-y divide-gray-200 dark:divide-gray-600"
 >
